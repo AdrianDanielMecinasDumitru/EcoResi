@@ -135,8 +135,8 @@ EcoResi/
 - 👤 Adrián Daniel Mecinas Dumitru
 - 👤 Alonso Garde Alite
 - 👤 María Plaza Ruiz
-- 👤 Guillermo Rosillo Vázquez
-- 👤 Álvaro Cano
+- 👤 Guillermo Rosillo Serrano
+- 👤 Álvaro Cano Andrés
 
 ---
 
