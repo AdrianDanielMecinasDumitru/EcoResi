@@ -155,7 +155,7 @@ EcoResi/
 - 🌐 **[Visualiza el prototipo](https://sip-teal-63549328.figma.site/)**
 - 📧 **Contacto**: adriandaniel.mecinas@alu.uclm.es
 - 🏫 **Universidad**: Universidad de Castilla-La Mancha (UCLM)
-- - 🏫 **Facultad**: Escuela Superior de Ingeniería Informática de Albacete (ESIIAB)
+- 🏫 **Facultad**: Escuela Superior de Ingeniería Informática de Albacete (ESIIAB)
 
 ---
 
