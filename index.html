@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoResi – Menos desperdicio, más comunidad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:   #1a3a2a;
+      --green-mid:    #2d6a4f;
+      --green-vivid:  #40916c;
+      --green-light:  #74c69d;
+      --green-pale:   #b7e4c7;
+      --cream:        #f8f4ec;
+      --cream-dark:   #ede8dc;
+      --amber:        #e9a825;
+      --red-soft:     #d64045;
+      --text-dark:    #1a2318;
+      --text-mid:     #3b5244;
+      --text-light:   #7a9e8a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 5vw;
+      background: rgba(248, 244, 236, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(45, 106, 79, 0.12);
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem; font-weight: 900;
+      color: var(--green-mid);
+      letter-spacing: -0.03em;
+    }
+    .nav-logo span { color: var(--green-light); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.88rem; font-weight: 500;
+      color: var(--text-mid); transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green-vivid); }
+    .nav-cta {
+      background: var(--green-mid); color: #fff;
+      border: none; border-radius: 99px;
+      padding: .55rem 1.4rem; font-size: .88rem; font-weight: 600;
+      cursor: pointer; transition: background .2s, transform .15s;
+      text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 3rem;
+      padding: 7rem 5vw 5rem;
+      background: linear-gradient(135deg, var(--cream) 55%, #d8eed7 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; top: -180px; right: -120px;
+      width: 620px; height: 620px;
+      background: radial-gradient(circle, rgba(116,198,157,0.28) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    #hero::after {
+      content: '';
+      position: absolute; bottom: -100px; left: 8%;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(45,106,79,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--green-pale); color: var(--green-dark);
+      border-radius: 99px; padding: .35rem 1rem;
+      font-size: .78rem; font-weight: 600; letter-spacing: .04em;
+      text-transform: uppercase; margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp .7s .1s forwards;
+    }
+    .hero-tag::before { content: '🌿'; }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.07; font-weight: 900;
+      letter-spacing: -.03em; color: var(--green-dark);
+      opacity: 0; animation: fadeUp .7s .2s forwards;
+    }
+    h1 em { font-style: italic; color: var(--green-vivid); }
+
+    .hero-sub {
+      margin-top: 1.4rem; font-size: 1.08rem; line-height: 1.65;
+      color: var(--text-mid); max-width: 480px;
+      opacity: 0; animation: fadeUp .7s .35s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; margin-top: 2.2rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .7s .5s forwards;
+    }
+    .btn-primary {
+      background: var(--green-mid); color: #fff;
+      border: none; border-radius: 99px;
+      padding: .85rem 2rem; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,58,42,.2); }
+    .btn-outline {
+      background: transparent; color: var(--green-mid);
+      border: 2px solid var(--green-mid); border-radius: 99px;
+      padding: .85rem 2rem; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: all .2s; text-decoration: none;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: var(--green-mid); color: #fff; transform: translateY(-2px); }
+
+    /* hero phone mockup */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+      position: relative; z-index: 1;
+      opacity: 0; animation: fadeIn .9s .4s forwards;
+    }
+    .phone-shell {
+      width: 250px; height: 490px;
+      background: var(--green-dark);
+      border-radius: 36px;
+      box-shadow: 0 40px 80px rgba(26,58,42,.35), 0 0 0 6px rgba(116,198,157,.18);
+      display: flex; flex-direction: column;
+      overflow: hidden; position: relative;
+    }
+    .phone-top-bar {
+      background: rgba(255,255,255,.06);
+      padding: .7rem 1.2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .phone-app-name {
+      font-family: 'Fraunces', serif; color: #fff; font-size: .85rem; font-weight: 700;
+    }
+    .phone-exit { color: var(--green-light); font-size: .75rem; }
+    .phone-stats {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      padding: .9rem .9rem .6rem; gap: .5rem;
+    }
+    .stat-pill {
+      text-align: center; padding: .5rem .3rem;
+      background: rgba(255,255,255,.06); border-radius: 10px;
+    }
+    .stat-num { font-size: 1.2rem; font-weight: 700; color: #fff; display: block; }
+    .stat-num.green { color: var(--green-light); }
+    .stat-num.red { color: #f08080; }
+    .stat-lbl { font-size: .6rem; color: rgba(255,255,255,.5); }
+    .phone-month {
+      text-align: center; color: rgba(255,255,255,.7);
+      font-size: .78rem; font-weight: 600; padding: .3rem 0 .6rem;
+      letter-spacing: .05em;
+    }
+    .phone-cal {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 3px; padding: 0 .8rem;
+    }
+    .cal-day {
+      aspect-ratio: 1; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; font-weight: 600;
+      color: rgba(255,255,255,.3);
+    }
+    .cal-day.go  { background: rgba(116,198,157,.35); color: var(--green-light); }
+    .cal-day.no  { background: rgba(208,80,80,.3);   color: #f08080; }
+    .cal-day.today { background: var(--green-vivid); color: #fff; }
+    .phone-legend {
+      display: flex; gap: 1rem; padding: .7rem .9rem;
+      justify-content: center;
+    }
+    .leg { display: flex; align-items: center; gap: .3rem; font-size: .6rem; color: rgba(255,255,255,.5); }
+    .leg-dot { width: 8px; height: 8px; border-radius: 2px; }
+    .floating-badge {
+      position: absolute;
+      bottom: -16px; right: -24px;
+      background: #fff; border-radius: 14px;
+      padding: .7rem 1rem; font-size: .75rem; font-weight: 600;
+      color: var(--green-dark); white-space: nowrap;
+      box-shadow: 0 8px 30px rgba(26,58,42,.15);
+      display: flex; align-items: center; gap: .4rem;
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: var(--green-dark);
+      padding: 2.5rem 5vw;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-big {
+      font-family: 'Fraunces', serif; font-size: 2.8rem; font-weight: 900;
+      color: var(--green-light); line-height: 1;
+    }
+    .stat-desc { font-size: .82rem; color: rgba(255,255,255,.6); margin-top: .3rem; }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 5vw; }
+    .section-tag {
+      display: inline-block; background: var(--green-pale);
+      color: var(--green-dark); border-radius: 99px;
+      padding: .3rem .9rem; font-size: .75rem; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase; margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: 'Fraunces', serif; font-weight: 900;
+      font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1;
+      letter-spacing: -.02em; color: var(--green-dark);
+    }
+    h2 em { font-style: italic; color: var(--green-vivid); }
+
+    /* ── PROBLEM ── */
+    #problema {
+      background: var(--cream-dark);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .problem-text p { margin-top: 1.2rem; line-height: 1.7; color: var(--text-mid); }
+    .problem-cards { display: grid; gap: 1rem; }
+    .p-card {
+      background: #fff; border-radius: 16px; padding: 1.4rem 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      box-shadow: 0 2px 16px rgba(26,58,42,.07);
+      border-left: 4px solid transparent;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .p-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(26,58,42,.12); }
+    .p-card.red   { border-color: var(--red-soft); }
+    .p-card.amber { border-color: var(--amber); }
+    .p-card.green { border-color: var(--green-vivid); }
+    .p-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .p-title { font-weight: 600; font-size: .95rem; color: var(--text-dark); }
+    .p-desc  { font-size: .82rem; color: var(--text-mid); margin-top: .2rem; line-height: 1.5; }
+
+    /* ── HOW IT WORKS ── */
+    #como-funciona { text-align: center; }
+    #como-funciona h2 { margin-bottom: .8rem; }
+    #como-funciona > p { color: var(--text-mid); max-width: 520px; margin: 0 auto 3.5rem; line-height: 1.65; }
+    .steps {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      counter-reset: steps;
+    }
+    .step {
+      background: #fff; border-radius: 20px; padding: 2rem 1.6rem 1.8rem;
+      box-shadow: 0 2px 20px rgba(26,58,42,.07);
+      position: relative; text-align: left;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .step:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,58,42,.13); }
+    .step-num {
+      width: 36px; height: 36px; background: var(--green-mid); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .9rem; margin-bottom: 1.2rem;
+    }
+    .step-emoji { font-size: 2rem; margin-bottom: .8rem; display: block; }
+    .step h3 { font-weight: 700; font-size: 1.05rem; color: var(--green-dark); margin-bottom: .5rem; }
+    .step p  { font-size: .86rem; color: var(--text-mid); line-height: 1.6; }
+    .step-connector {
+      display: none;
+    }
+
+    /* ── FEATURES ── */
+    #funcionalidades {
+      background: var(--green-dark);
+      color: #fff;
+    }
+    #funcionalidades .section-tag { background: rgba(116,198,157,.2); color: var(--green-light); }
+    #funcionalidades h2 { color: #fff; margin-bottom: .8rem; }
+    #funcionalidades > p { color: rgba(255,255,255,.6); max-width: 500px; margin-bottom: 3rem; line-height: 1.65; }
+    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    .feat {
+      background: rgba(255,255,255,.06); border-radius: 16px;
+      padding: 1.6rem; border: 1px solid rgba(116,198,157,.12);
+      transition: background .2s, transform .2s;
+    }
+    .feat:hover { background: rgba(116,198,157,.12); transform: translateY(-3px); }
+    .feat-icon { font-size: 1.8rem; margin-bottom: .8rem; }
+    .feat h3 { font-weight: 600; font-size: .98rem; margin-bottom: .4rem; }
+    .feat p  { font-size: .83rem; color: rgba(255,255,255,.55); line-height: 1.6; }
+
+    /* ── RESULTADOS ── */
+    #resultados { background: var(--cream-dark); }
+    #resultados h2 { margin-bottom: .8rem; }
+    #resultados > p { color: var(--text-mid); max-width: 520px; line-height: 1.65; margin-bottom: 3rem; }
+    .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .res-card {
+      background: #fff; border-radius: 20px; padding: 2rem;
+      text-align: center; box-shadow: 0 2px 20px rgba(26,58,42,.07);
+      transition: transform .2s;
+    }
+    .res-card:hover { transform: translateY(-4px); }
+    .res-pct {
+      font-family: 'Fraunces', serif; font-size: 3.2rem; font-weight: 900;
+      color: var(--green-vivid); line-height: 1; display: block;
+    }
+    .res-label { font-weight: 600; font-size: .9rem; color: var(--text-dark); margin-top: .4rem; }
+    .res-desc  { font-size: .8rem; color: var(--text-mid); margin-top: .3rem; line-height: 1.5; }
+
+    /* ── HIPÓTESIS ── */
+    #hipotesis { background: #fff; }
+    .hipotesis-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .hip-card {
+      border-radius: 16px; padding: 1.6rem;
+      border: 1.5px solid var(--green-pale);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .hip-card:hover { border-color: var(--green-vivid); box-shadow: 0 4px 20px rgba(26,58,42,.1); }
+    .hip-tag {
+      font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--green-vivid); margin-bottom: .6rem;
+    }
+    .hip-card h3 { font-weight: 700; font-size: .95rem; color: var(--text-dark); margin-bottom: .5rem; }
+    .hip-card p  { font-size: .82rem; color: var(--text-mid); line-height: 1.6; }
+    .hip-metric {
+      margin-top: .9rem; background: var(--green-pale); border-radius: 8px;
+      padding: .45rem .8rem; font-size: .78rem; font-weight: 600; color: var(--green-dark);
+      display: inline-block;
+    }
+
+    /* ── CTA ── */
+    #cta {
+      background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-dark) 100%);
+      text-align: center; padding: 7rem 5vw;
+      position: relative; overflow: hidden;
+    }
+    #cta::before {
+      content: '';
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(116,198,157,.25) 0%, transparent 65%);
+    }
+    #cta h2 { color: #fff; font-size: clamp(2.2rem, 4vw, 3.2rem); position: relative; }
+    #cta p  { color: rgba(255,255,255,.7); max-width: 480px; margin: 1rem auto 2.5rem; line-height: 1.65; position: relative; }
+    #cta .btn-primary { background: var(--cream); color: var(--green-dark); font-size: 1.05rem; padding: 1rem 2.4rem; position: relative; }
+    #cta .btn-primary:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,.2); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--green-dark); padding: 2rem 5vw;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 900; color: var(--green-light); }
+    .footer-copy { font-size: .78rem; color: rgba(255,255,255,.4); }
+    .footer-team { font-size: .75rem; color: rgba(255,255,255,.3); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #hero          { grid-template-columns: 1fr; text-align: center; }
+      .hero-sub      { max-width: 100%; }
+      .hero-actions  { justify-content: center; }
+      .hero-visual   { order: -1; }
+      #problema      { grid-template-columns: 1fr; }
+      .steps         { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .results-grid  { grid-template-columns: 1fr; }
+      .hipotesis-list{ grid-template-columns: 1fr; }
+      .stats-strip   { grid-template-columns: repeat(2, 1fr); }
+      .nav-links     { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Eco<span>Resi</span></div>
+  <ul class="nav-links">
+    <li><a href="#problema">El problema</a></li>
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#funcionalidades">Funcionalidades</a></li>
+    <li><a href="#resultados">Resultados</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Descubrir más</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="hero-tag">Residencias universitarias</div>
+    <h1>Menos desperdicio,<br><em>más comunidad.</em></h1>
+    <p class="hero-sub">EcoResi conecta a los residentes con el comedor de su universidad en tres toques. Confirma tu asistencia, reduce el desperdicio y haz tu residencia más sostenible.</p>
+    <div class="hero-actions">
+      <a href="#como-funciona" class="btn-primary">¿Cómo funciona?</a>
+      <a href="#resultados" class="btn-outline">Ver resultados del estudio</a>
+    </div>
+  </div>
+
+  <!-- Phone mockup -->
+  <div class="hero-visual">
+    <div style="position: relative; display: inline-block;">
+      <div class="phone-shell">
+        <div class="phone-top-bar">
+          <span class="phone-app-name">Comedor Digital</span>
+          <span class="phone-exit">↗ Salir</span>
+        </div>
+        <div class="phone-stats">
+          <div class="stat-pill">
+            <span class="stat-num">19</span>
+            <span class="stat-lbl">Total días</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-num green">13</span>
+            <span class="stat-lbl">Asistiré</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-num red">6</span>
+            <span class="stat-lbl">No asist.</span>
+          </div>
+        </div>
+        <div class="phone-month">Mayo 2026</div>
+        <div class="phone-cal">
+          <div class="cal-day" style="color:rgba(255,255,255,.15)">L</div>
+          <div class="cal-day" style="color:rgba(255,255,255,.15)">M</div>
+          <div class="cal-day" style="color:rgba(255,255,255,.15)">X</div>
+          <div class="cal-day" style="color:rgba(255,255,255,.15)">J</div>
+          <div class="cal-day" style="color:rgba(255,255,255,.15)">V</div>
+          <div class="cal-day" style="color:rgba(255,255,255,.15)">S</div>
+          <div class="cal-day" style="color:rgba(255,255,255,.15)">D</div>
+          <div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div>
+          <div class="cal-day"></div><div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
+          <div class="cal-day go">4</div><div class="cal-day go">5</div><div class="cal-day no">6</div>
+          <div class="cal-day go">7</div><div class="cal-day go">8</div><div class="cal-day no">9</div><div class="cal-day no">10</div>
+          <div class="cal-day go">11</div><div class="cal-day today">12</div><div class="cal-day go">13</div>
+          <div class="cal-day go">14</div><div class="cal-day go">15</div><div class="cal-day no">16</div><div class="cal-day no">17</div>
+          <div class="cal-day go">18</div><div class="cal-day go">19</div><div class="cal-day go">20</div>
+          <div class="cal-day go">21</div><div class="cal-day no">22</div><div class="cal-day go">23</div><div class="cal-day go">24</div>
+          <div class="cal-day go">25</div><div class="cal-day no">26</div><div class="cal-day go">27</div>
+          <div class="cal-day go">28</div><div class="cal-day go">29</div><div class="cal-day go">30</div><div class="cal-day go">31</div>
+        </div>
+        <div class="phone-legend">
+          <div class="leg"><div class="leg-dot" style="background:rgba(116,198,157,.6)"></div> Asistiré</div>
+          <div class="leg"><div class="leg-dot" style="background:rgba(208,80,80,.6)"></div> No asistiré</div>
+        </div>
+      </div>
+      <div class="floating-badge">🌱 −30% desperdicio estimado</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-big">78,8%</div>
+    <div class="stat-desc">de estudiantes confirma el problema del desperdicio</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-big">4,22</div>
+    <div class="stat-desc">puntuación media de satisfacción sobre 5</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-big">63,6%</div>
+    <div class="stat-desc">usaría la app de forma habitual sin obligación</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-big">3 toques</div>
+    <div class="stat-desc">es todo lo que necesitas para gestionar tu semana</div>
+  </div>
+</div>
+
+<!-- PROBLEMA -->
+<section id="problema">
+  <div class="problem-text">
+    <div class="section-tag">El problema</div>
+    <h2>Las cocinas cocinan <em>a ciegas</em></h2>
+    <p>En las residencias universitarias, el personal de cocina no dispone de información precisa sobre cuántos estudiantes van a comer. El resultado es inevitable: sobreproducción, desperdicio y costes innecesarios.</p>
+    <p style="margin-top:.8rem;">Un problema que afecta a todos: al personal, a la economía de la residencia y al medio ambiente.</p>
+  </div>
+  <div class="problem-cards">
+    <div class="p-card red">
+      <div class="p-icon">🗑️</div>
+      <div>
+        <div class="p-title">Desperdicio alimentario masivo</div>
+        <div class="p-desc">Se prepara comida sin saber cuántos residentes acudirán, generando toneladas de alimento que acaban en la basura.</div>
+      </div>
+    </div>
+    <div class="p-card amber">
+      <div class="p-icon">💸</div>
+      <div>
+        <div class="p-title">Costes operativos elevados</div>
+        <div class="p-desc">La sobreproducción constante dispara el gasto en ingredientes, energía y gestión de residuos en cada residencia.</div>
+      </div>
+    </div>
+    <div class="p-card green">
+      <div class="p-icon">🌍</div>
+      <div>
+        <div class="p-title">Impacto medioambiental</div>
+        <div class="p-desc">El desperdicio de alimentos es una de las principales fuentes de emisiones de CO₂. Reducirlo en las residencias tiene un efecto real y medible.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="como-funciona">
+  <div class="section-tag">Cómo funciona</div>
+  <h2>Simple, rápido y <em>sin fricción</em></h2>
+  <p>EcoResi está diseñada para que confirmar tu asistencia al comedor sea tan fácil como revisar el móvil por la mañana.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <span class="step-emoji">🔐</span>
+      <h3>Accede con tu residencia</h3>
+      <p>Inicia sesión con tu correo universitario y el código de tu residencia. En segundos estás dentro, de forma segura y exclusiva.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <span class="step-emoji">📅</span>
+      <h3>Consulta tu calendario</h3>
+      <p>Un vistazo al calendario mensual te muestra en verde y rojo exactamente cómo tienes planificadas tus comidas. Clarísimo.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <span class="step-emoji">✅</span>
+      <h3>Confirma o cancela</h3>
+      <p>Toca cualquier día y en un menú flotante elige Sí o No. También puedes marcar toda una semana de golpe. Hasta 5h antes del servicio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUNCIONALIDADES -->
+<section id="funcionalidades">
+  <div class="section-tag">Funcionalidades</div>
+  <h2>Todo lo que necesitas, <em>nada que sobre.</em></h2>
+  <p>El MVP de EcoResi se ha diseñado para maximizar la usabilidad y minimizar la curva de aprendizaje. Cada funcionalidad está respaldada por datos reales.</p>
+  <div class="features-grid">
+    <div class="feat">
+      <div class="feat-icon">🗓️</div>
+      <h3>Calendario visual mensual</h3>
+      <p>Con código de colores universal (verde/rojo), el estudiante sabe de un vistazo cómo tiene planificado el mes. Sin ambigüedades.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">⚡</div>
+      <h3>Confirmación en 3 toques</h3>
+      <p>Toca el día → elige Sí/No → listo. El flujo más corto posible, validado en tests de usuario con una aprobación del 57,6%.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">📆</div>
+      <h3>Marcado de semana completa</h3>
+      <p>Confirma o cancela toda una semana de un solo gesto. El 81,9% de los usuarios la considera fundamental o muy útil.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🍽️</div>
+      <h3>Menú del día integrado</h3>
+      <p>Próximamente: consulta qué hay para comer antes de confirmar tu asistencia. Tu decisión, informada desde el primer momento.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🏆</div>
+      <h3>Sistema de recompensas</h3>
+      <p>Acumula puntos por confirmaciones a tiempo y canjéalos por descuentos en el comedor o invitaciones para amigos.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🔔</div>
+      <h3>Notificaciones inteligentes</h3>
+      <p>Recordatorios automáticos antes de cada servicio para que nunca olvides confirmar tu asistencia o cancelar a tiempo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTADOS -->
+<section id="resultados">
+  <div class="section-tag">Estudio de validación</div>
+  <h2>Los números <em>avalan</em> la idea</h2>
+  <p>33 estudiantes residentes participaron en nuestra encuesta de validación. Los datos son contundentes: el problema es real y la solución convence.</p>
+  <div class="results-grid">
+    <div class="res-card">
+      <span class="res-pct">78,8%</span>
+      <div class="res-label">Confirma el problema</div>
+      <div class="res-desc">De los encuestados cree que se desperdicia mucha o bastante comida en las residencias universitarias.</div>
+    </div>
+    <div class="res-card">
+      <span class="res-pct">72,7%</span>
+      <div class="res-label">A favor de la obligatoriedad</div>
+      <div class="res-desc">Estaría contento si EcoResi se implementara de forma obligatoria en su residencia para reducir el desperdicio.</div>
+    </div>
+    <div class="res-card">
+      <span class="res-pct">84%</span>
+      <div class="res-label">Valoración 4 o 5 sobre 5</div>
+      <div class="res-desc">Del total de encuestados puntúa el nivel de satisfacción con el proyecto entre 4 y 5 estrellas sobre 5.</div>
+    </div>
+    <div class="res-card">
+      <span class="res-pct">54,5%</span>
+      <div class="res-label">Navegación intuitiva</div>
+      <div class="res-desc">Considera que el calendario y el resumen de asistencia son totalmente intuitivos y la información es clara.</div>
+    </div>
+    <div class="res-card">
+      <span class="res-pct">8–9/10</span>
+      <div class="res-label">Índice de recomendación</div>
+      <div class="res-desc">La distribución del NPS muestra una fuerte concentración en notas altas, indicando alta disposición a recomendar EcoResi.</div>
+    </div>
+    <div class="res-card">
+      <span class="res-pct">81,9%</span>
+      <div class="res-label">Valoran el marcado semanal</div>
+      <div class="res-desc">De los participantes considera la funcionalidad de marcar toda una semana como fundamental o muy útil.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HIPÓTESIS -->
+<section id="hipotesis">
+  <div class="section-tag">Hipótesis validadas</div>
+  <h2>Construido con <em>metodología Lean UX</em></h2>
+  <div class="hipotesis-list">
+    <div class="hip-card">
+      <div class="hip-tag">Hipótesis de negocio</div>
+      <h3>Reducción del desperdicio ≥ 30%</h3>
+      <p>Con notificaciones en tiempo real y datos precisos de asistencia, el personal de cocina podrá planificar con exactitud las cantidades necesarias para cada servicio.</p>
+      <span class="hip-metric">Meta: −30% de desperdicio mensual</span>
+    </div>
+    <div class="hip-card">
+      <div class="hip-tag">Hipótesis de adopción</div>
+      <h3>Máximo 3 toques, menos de 20 segundos</h3>
+      <p>El flujo de confirmación/cancelación ha sido diseñado para completarse en el menor número de interacciones posibles, validado con usuarios reales.</p>
+      <span class="hip-metric">57,6% lo califica como muy cómodo</span>
+    </div>
+    <div class="hip-card">
+      <div class="hip-tag">Hipótesis de retención</div>
+      <h3>+80% de usuarios activos diarios</h3>
+      <p>El sistema de incentivos (puntos, descuentos, invitaciones) gamifica el proceso de confirmación para mantener el hábito a largo plazo entre los residentes.</p>
+      <span class="hip-metric">Gamificación + recompensas integradas</span>
+    </div>
+    <div class="hip-card">
+      <div class="hip-tag">Hipótesis de cancelación</div>
+      <h3>Reservas fantasma &lt; 5%</h3>
+      <p>Permitir la cancelación hasta 5 horas antes del servicio equilibra la flexibilidad que demandan los estudiantes con las necesidades logísticas de la cocina.</p>
+      <span class="hip-metric">Ventana flexible: hasta 5h antes</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <h2>¿Tienes una residencia?<br><em>Empieza a reducir el desperdicio.</em></h2>
+  <p>EcoResi está siendo desarrollada por estudiantes de Ingeniería Informática de la UCLM. Únete al proyecto y sé de los primeros en probarlo.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">EcoResi</div>
+  <div class="footer-copy">© 2026 EcoResi · Proyecto académico IPO II · UCLM</div>
+  <div class="footer-team">Alvaro Cano · Adrian D. Mecinas · Alonso Garde · María Plaza · Guillermo Rosillo</div>
+</footer>
+
+</body>
+</html>
